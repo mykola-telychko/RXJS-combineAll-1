@@ -1,10 +1,13 @@
 import { take, map, combineAll } from 'rxjs/operators';
 import { interval } from 'rxjs';
 
+// explenation
+// https://stackoverflow.com/questions/45181884/rxjs-combineall-operator-explanation
+
 // emit every 1s, take 2
 const timeInterval = 2000;
 const qtyTake = 8;
-const qtyElemInFinallArr = 3; // valOuter
+const qtyElemInFinallArr = 3; // valOuter [arr per second] = qtyElemInFinallArr/timeInterval
 const fnApplyToCombineAll = console.log;
 
 // first .PIPE
@@ -18,7 +21,7 @@ const src$ = interval(timeInterval).pipe(take(qtyElemInFinallArr));
 const result$ = src$.pipe(
   map((valOuter) =>
     interval(timeInterval).pipe(
-      map((valInner) => `Res (${valOuter}): ${valInner}`),
+      map((valInner) => `Res el-(${valOuter}) : ${valInner}`),
       take(qtyTake)
     )
   )
